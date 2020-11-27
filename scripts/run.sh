@@ -8,10 +8,16 @@ if [ -f "$FILE" ]; then
     source $FILE
 fi
 
-if [ -f "havps.py" ]; then
+if [ "$OVH_USE_ASYNC" = true ] ; then
+    EXE=havps-async.py
+else
+    EXE=havps.py
+fi
+
+if [ -f "$EXE" ]; then
     echo "Running at the root"
-    python havps.py $@
+    python $EXE $@
 else
     echo "Running in the src directory"
-    python src/havps.py $@
+    python src/$EXE $@
 fi
